@@ -29,3 +29,14 @@ vendas = pd.DataFrame({
 
 df = vendas.merge(clientes, on="id_cliente", how="left")
 df = df.merge(produtos, on="id_produto", how="left")
+
+df["valor_total"] = df["quantidade"] * df["preco_unitario"]
+df["mes"] = df["data_venda"].dt.month
+df["ano"] = df["data_venda"].dt.year
+df["dia_semana"] = df["data_venda"].dt.day_name()
+
+df["faixa_etaria"] = pd.cut(
+    df["idade"],
+    bins=[17, 25, 35, 45, 60, 100],
+    labels=["18-25", "26-35", "36-45", "46-60", "60+"]
+)
