@@ -51,3 +51,33 @@ print(f"Faturamento total: R$ {faturamento_total:,.2f}")
 print(f"Ticket médio: R$ {ticket_medio:,.2f}")
 print(f"Total de vendas: {total_vendas}")
 print(f"Clientes únicos: {total_clientes}")
+
+vendas_por_estado = (
+    df.groupby("estado")
+    .agg(
+        faturamento=("valor_total", "sum"),
+        quantidade_vendida=("quantidade", "sum"),
+        clientes_unicos=("id_cliente", "nunique")
+    )
+    .sort_values("faturamento", ascending=False)
+)
+
+vendas_por_categoria = (
+    df.groupby("categoria")
+    .agg(
+        faturamento=("valor_total", "sum"),
+        quantidade=("quantidade", "sum"),
+        ticket_medio=("valor_total", "mean")
+    )
+    .sort_values("faturamento", ascending=False)
+)
+
+top_produtos = (
+    df.groupby("produto")
+    .agg(
+        faturamento=("valor_total", "sum"),
+        unidades_vendidas=("quantidade", "sum")
+    )
+    .sort_values("faturamento", ascending=False)
+    .head(5)
+)
