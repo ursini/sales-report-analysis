@@ -40,3 +40,14 @@ df["faixa_etaria"] = pd.cut(
     bins=[17, 25, 35, 45, 60, 100],
     labels=["18-25", "26-35", "36-45", "46-60", "60+"]
 )
+
+faturamento_total = df["valor_total"].sum()
+ticket_medio = df["valor_total"].mean()
+total_vendas = df["id_venda"].nunique()
+total_clientes = df["id_cliente"].nunique()
+
+print("--- RESUMO GERAL ---")
+print(f"Faturamento total: R$ {faturamento_total:,.2f}")
+print(f"Ticket médio: R$ {ticket_medio:,.2f}")
+print(f"Total de vendas: {total_vendas}")
+print(f"Clientes únicos: {total_clientes}")
