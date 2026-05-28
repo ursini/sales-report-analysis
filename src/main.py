@@ -26,3 +26,6 @@ vendas = pd.DataFrame({
     "quantidade": np.random.randint(1, 6, 1000),
     "data_venda": pd.date_range("2024-01-01", periods=1000, freq="d")
 })
+
+df = vendas.merge(clientes, on="id_cliente", how="left")
+df = df.merge(produtos, on="id_produto", how="left")
