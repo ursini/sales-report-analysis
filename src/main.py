@@ -1,5 +1,6 @@
 import pandas as pd
 import numpy as np
+pd.ExcelWriter("data/relatorio_vendas_pandas.xlsx")
 
 np.random.seed(1)
 
@@ -147,3 +148,15 @@ outliers = df[
     (df["valor_total"] < limite_inferior) |
     (df["valor_total"] > limite_superior)
 ]
+
+with pd.ExcelWriter("relatorio_vendas_pandas.xlsx") as writer:
+    df.to_excel(writer, sheet_name="Base Tratada", index=False)
+    vendas_por_estado.to_excel(writer, sheet_name="Vendas por Estado")
+    vendas_por_categoria.to_excel(writer, sheet_name="Vendas por Categoria")
+    top_produtos.to_excel(writer, sheet_name="Top Produtos")
+    clientes_vip.to_excel(writer, sheet_name="Clientes VIP")
+    faturamento_mensal.to_excel(writer, sheet_name="Faturamento Mensal", index=False)
+    pivot_estado_categoria.to_excel(writer, sheet_name="Pivot Estado Categoria")
+    outliers.to_excel(writer, sheet_name="Outliers", index=False)
+
+print("Relatório Excel gerado com sucesso!")
