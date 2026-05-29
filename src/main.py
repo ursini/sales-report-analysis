@@ -81,3 +81,19 @@ top_produtos = (
     .sort_values("faturamento", ascending=False)
     .head(5)
 )
+
+faturamento_mensal = (
+    df.groupby(["ano", "mes"])
+    .agg(
+        faturamento=("valor_total", "sum"),
+        vendas=("id_venda", "count")
+    )
+    .reset_index()
+)
+
+faturamento_mensal["crescimento_%"] = (
+    faturamento_mensal["faturamento"]
+    .pct_change()
+    .mul(100)
+    .round(2)
+)
