@@ -81,6 +81,16 @@ top_produtos = (
     .sort_values("faturamento", ascending=False)
     .head(5)
 )
+clientes_vip = (
+    df.groupby(["id_cliente", "nome"])
+    .agg(
+        total_gasto=("valor_total", "sum"),
+        compras=("id_venda", "count"),
+        ticket_medio=("valor_total", "mean")
+    )
+    .sort_values("total_gasto", ascending=False)
+    .head(5)
+)
 
 faturamento_mensal = (
     df.groupby(["ano", "mes"])
