@@ -160,3 +160,21 @@ with pd.ExcelWriter("relatorio_vendas_pandas.xlsx") as writer:
     outliers.to_excel(writer, sheet_name="Outliers", index=False)
 
 print("Relatório Excel gerado com sucesso!")
+
+print("\n--- VENDAS POR ESTADO ---")
+print(vendas_por_estado)
+
+print("\n--- VENDAS POR CATEGORIA ---")
+print(vendas_por_categoria)
+
+print("\n--- TOP 10 PRODUTOS ---")
+print(top_produtos)
+
+print("\n--- CLIENTES VIP ---")
+print(clientes_vip)
+
+print("\n--- FATURAMENTO MENSAL ---")
+print(faturamento_mensal)
+
+print("\n--- OUTLIERS ENCONTRADOS ---")
+print(outliers[["id_venda", "nome", "produto", "valor_total"]].head())
