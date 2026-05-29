@@ -97,3 +97,22 @@ faturamento_mensal["crescimento_%"] = (
     .mul(100)
     .round(2)
 )
+
+def classificar_cliente(valor):
+    if valor >= 20000:
+        return "VIP"
+    elif valor >= 10000:
+        return "Premium"
+    elif valor >= 5000:
+        return "Regular"
+    return "Novo"
+
+gasto_clientes = (
+    df.groupby("id_cliente")["valor_total"]
+    .sum()
+    .reset_index(name="total_gasto")
+)
+
+gasto_clientes["categoria_cliente"] = gasto_clientes["total_gasto"].apply(classificar_cliente)
+
+df = df.merge(gasto_clientes[["id_cliente", "categoria_cliente"]], on="id_cliente", how="left")
