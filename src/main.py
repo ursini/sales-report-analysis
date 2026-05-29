@@ -116,3 +116,12 @@ gasto_clientes = (
 gasto_clientes["categoria_cliente"] = gasto_clientes["total_gasto"].apply(classificar_cliente)
 
 df = df.merge(gasto_clientes[["id_cliente", "categoria_cliente"]], on="id_cliente", how="left")
+
+pivot_estado_categoria = pd.pivot_table(
+    df,
+    values="valor_total",
+    index="estado",
+    columns="categoria",
+    aggfunc="sum",
+    fill_value=0
+)
