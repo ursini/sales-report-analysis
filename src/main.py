@@ -135,3 +135,15 @@ pivot_estado_categoria = pd.pivot_table(
     aggfunc="sum",
     fill_value=0
 )
+
+q1 = df["valor_total"].quantile(0.25)
+q3 = df["valor_total"].quantile(0.75)
+iqr = q3 - q1
+
+limite_inferior = q1 - 1.5 * iqr
+limite_superior = q3 + 1.5 * iqr
+
+outliers = df[
+    (df["valor_total"] < limite_inferior) |
+    (df["valor_total"] > limite_superior)
+]
